@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtPgtos/v_S_01_02_00">
+  <evtPgtos Id="ID1123456780001952026110100000000005">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <indApuracao>1</indApuracao>
+      <perApur>2026-11</perApur>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>SPEDFACIL-TESTE-1.0</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>12345678000195</nrInsc>
+    </ideEmpregador>
+    <ideBenef>
+      <cpfBenef>12345678909</cpfBenef>
+    </ideBenef>
+    <infoPgto>
+      <dtPgto>2026-11-05</dtPgto>
+      <tpPgto>1</tpPgto>
+      <indResBr>1</indResBr>
+      <detPgtoFl>
+        <perRef>2026-11</perRef>
+        <ideDmDev>DMDEV-001</ideDmDev>
+        <indPgtoTt>1</indPgtoTt>
+        <vrLiq>3200.00</vrLiq>
+        <retPgtoTot>
+          <codCateg>101</codCateg>
+          <vlrBaseIr>3500.00</vlrBaseIr>
+          <vlrBaseFam>3500.00</vlrBaseFam>
+          <vlrBaseFgts>3500.00</vlrBaseFgts>
+        </retPgtoTot>
+      </detPgtoFl>
+    </infoPgto>
+  </evtPgtos>
+</eSocial>

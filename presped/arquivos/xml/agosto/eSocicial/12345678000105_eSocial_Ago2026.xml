@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtRemun/v_S_01_03_00">
+  <evtRemun id="ID1123456780001052026080112000000000000000001">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <nrRecibo></nrRecibo>
+      <indApuracao>1</indApuracao>
+      <perApur>2026-08</perApur>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>SPEDFacil-Teste-1.0</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>12345678000105</nrInsc>
+    </ideEmpregador>
+    <ideTrabalhador>
+      <cpfTrab>12345678909</cpfTrab>
+      <nmTrab>Funcionario Teste SPEDFacil</nmTrab>
+      <dtNascto>1990-01-15</dtNascto>
+    </ideTrabalhador>
+    <dmDev>
+      <ideDmDev>DMDEV-TESTE-001</ideDmDev>
+      <codCateg>101</codCateg>
+      <infoPerApur>
+        <ideEstabLot>
+          <tpInsc>1</tpInsc>
+          <nrInsc>12345678000105</nrInsc>
+          <codLotacao>001</codLotacao>
+          <detRubrFer>
+            <codRubr>1000</codRubr>
+            <ideTabRubr>001</ideTabRubr>
+            <qtdRubr>1.00</qtdRubr>
+            <fatorRubr>1.00</fatorRubr>
+            <vrUnit>10000.00</vrUnit>
+            <vrRubr>10000.00</vrRubr>
+          </detRubrFer>
+          <infoAgNocivo>
+            <grauExp>1</grauExp>
+          </infoAgNocivo>
+        </ideEstabLot>
+      </infoPerApur>
+    </dmDev>
+    <infoCpCalc>
+      <totApur>
+        <vlrCpSeg>800.00</vlrCpSeg>
+        <vlrCpPatr>500.00</vlrCpPatr>
+        <vlrRat>100.00</vlrRat>
+        <vlrTerceiros>100.00</vlrTerceiros>
+        <vlrTotal>1500.00</vlrTotal>
+      </totApur>
+    </infoCpCalc>
+  </evtRemun>
+  <Signature>ASSINATURA-FAKE-PARA-TESTE</Signature>
+</eSocial>

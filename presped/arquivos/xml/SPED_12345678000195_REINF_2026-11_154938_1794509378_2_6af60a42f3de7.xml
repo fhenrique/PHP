@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Reinf>
+  <evtServPrest id="ID11234567800019520261101000000000000000001">
+    <ideEvento><perApur>2026-11</perApur></ideEvento>
+    <ideContri><tpInsc>1</tpInsc><nrInsc>12345678000195</nrInsc></ideContri>
+    <ideEstab><tpInscEstab>1</tpInscEstab><nrInscEstab>12345678000195</nrInscEstab>
+      <ideTomador><tpInscTomador>1</tpInscTomador><nrInscTomador>98765432000110</nrInscTomador><vlrTotalBruto>5000.00</vlrTotalBruto><vlrTotalBaseRet>5000.00</vlrTotalBaseRet><vlrTotalRetPrinc>550.00</vlrTotalRetPrinc></ideTomador>
+    </ideEstab>
+    <totApur><vlrTotalRet>550.00</vlrTotalRet><vlrTotalNRet>0.00</vlrTotalNRet></totApur>
+  </evtServPrest>
+</Reinf>

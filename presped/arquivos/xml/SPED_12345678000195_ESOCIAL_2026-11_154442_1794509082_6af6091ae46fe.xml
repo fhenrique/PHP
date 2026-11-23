@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtTabLotacao/v_S_01_02_00">
+  <evtTabLotacao Id="ID1123456780001952026110100000000003">
+    <ideEvento>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>SPEDFACIL-TESTE-1.0</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>12345678000195</nrInsc>
+    </ideEmpregador>
+    <infoLotacao>
+      <inclusao>
+        <ideLotacao>
+          <codLotacao>001</codLotacao>
+          <tpLotacao>01</tpLotacao>
+        </ideLotacao>
+        <idePeriodo>
+          <iniValid>2026-01</iniValid>
+        </idePeriodo>
+        <dadosLotacao>
+          <tpInsc>1</tpInsc>
+          <nrInsc>12345678000195</nrInsc>
+          <fpas>507</fpas>
+          <codTercs>0000</codTercs>
+          <codTercsSusp>0000</codTercsSusp>
+          <infoEmpregador>
+            <indAcid>0</indAcid>
+          </infoEmpregador>
+        </dadosLotacao>
+      </inclusao>
+    </infoLotacao>
+  </evtTabLotacao>
+</eSocial>

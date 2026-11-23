@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Reinf xmlns="http://www.reinf.esocial.gov.br/schemas/evtServTom/v1_05_01">
+  <evtServTom id="ID1123456780001062026080112000000000000000001">
+    <ideEvento>
+      <indRetif>1</indRetif>
+      <nrRecibo></nrRecibo>
+      <perApur>2026-08</perApur>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>SPEDFacil-Teste-1.0</verProc>
+    </ideEvento>
+    <ideContri>
+      <tpInsc>1</tpInsc>
+      <nrInsc>12345678000106</nrInsc>
+    </ideContri>
+    <ideEstab>
+      <tpInscEstab>1</tpInscEstab>
+      <nrInscEstab>12345678000106</nrInscEstab>
+
+      <!-- LINHA 1 -->
+      <idePrestServ>
+        <cnpjPrestador>11111111000111</cnpjPrestador>
+        <vlrTotalBruto>5000.00</vlrTotalBruto>
+        <vlrTotalBaseRet>5000.00</vlrTotalBaseRet>
+        <vlrTotalRet>550.00</vlrTotalRet>
+        <vlrTotalNRet>0.00</vlrTotalNRet>
+        <nfs>
+          <serie>1</serie>
+          <numDocto>2001</numDocto>
+          <dtEmissaoNF>2026-08-05</dtEmissaoNF>
+          <vlrBruto>5000.00</vlrBruto>
+          <obs></obs>
+          <tipoServ>100000001</tipoServ>
+        </nfs>
+        <infoTpServ>
+          <tpServ>100000001</tpServ>
+          <vlrBaseRet>5000.00</vlrBaseRet>
+          <vlrRet>550.00</vlrRet>
+          <vlrBaseNRet>0.00</vlrBaseNRet>
+          <vlrNRet>0.00</vlrNRet>
+        </infoTpServ>
+      </idePrestServ>
+
+      <!-- LINHA 2 -->
+      <idePrestServ>
+        <cnpjPrestador>22222222000122</cnpjPrestador>
+        <vlrTotalBruto>7000.00</vlrTotalBruto>
+        <vlrTotalBaseRet>7000.00</vlrTotalBaseRet>
+        <vlrTotalRet>770.00</vlrTotalRet>
+        <vlrTotalNRet>0.00</vlrTotalNRet>
+        <nfs>
+          <serie>1</serie>
+          <numDocto>2002</numDocto>
+          <dtEmissaoNF>2026-08-12</dtEmissaoNF>
+          <vlrBruto>7000.00</vlrBruto>
+          <obs></obs>
+          <tipoServ>100000002</tipoServ>
+        </nfs>
+        <infoTpServ>
+          <tpServ>100000002</tpServ>
+          <vlrBaseRet>7000.00</vlrBaseRet>
+          <vlrRet>770.00</vlrRet>
+          <vlrBaseNRet>0.00</vlrBaseNRet>
+          <vlrNRet>0.00</vlrNRet>
+        </infoTpServ>
+      </idePrestServ>
+
+      <!-- LINHA 3 -->
+      <idePrestServ>
+        <cnpjPrestador>33333333000133</cnpjPrestador>
+        <vlrTotalBruto>8000.00</vlrTotalBruto>
+        <vlrTotalBaseRet>8000.00</vlrTotalBaseRet>
+        <vlrTotalRet>880.00</vlrTotalRet>
+        <vlrTotalNRet>0.00</vlrTotalNRet>
+        <nfs>
+          <serie>1</serie>
+          <numDocto>2003</numDocto>
+          <dtEmissaoNF>2026-08-20</dtEmissaoNF>
+          <vlrBruto>8000.00</vlrBruto>
+          <obs></obs>
+          <tipoServ>100000003</tipoServ>
+        </nfs>
+        <infoTpServ>
+          <tpServ>100000003</tpServ>
+          <vlrBaseRet>8000.00</vlrBaseRet>
+          <vlrRet>880.00</vlrRet>
+          <vlrBaseNRet>0.00</vlrBaseNRet>
+          <vlrNRet>0.00</vlrNRet>
+        </infoTpServ>
+      </idePrestServ>
+
+    </ideEstab>
+    <totApur>
+      <vlrTotalBaseRet>20000.00</vlrTotalBaseRet>
+      <vlrTotalRet>2200.00</vlrTotalRet>
+      <vlrTotalNRet>0.00</vlrTotalNRet>
+      <vlrTotalBaseNRet>0.00</vlrTotalBaseNRet>
+    </totApur>
+  </evtServTom>
+  <Signature>ASSINATURA-FAKE-PARA-TESTE</Signature>
+</Reinf>

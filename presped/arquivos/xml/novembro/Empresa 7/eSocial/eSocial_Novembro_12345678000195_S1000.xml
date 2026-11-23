@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eSocial xmlns="http://www.esocial.gov.br/schema/evt/evtInfoEmpregador/v_S_01_02_00">
+  <evtInfoEmpregador Id="ID1123456780001952026110100000000001">
+    <ideEvento>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>SPEDFACIL-TESTE-1.0</verProc>
+    </ideEvento>
+    <ideEmpregador>
+      <tpInsc>1</tpInsc>
+      <nrInsc>12345678000195</nrInsc>
+    </ideEmpregador>
+    <infoEmpregador>
+      <inclusao>
+        <idePeriodo>
+          <iniValid>2026-01</iniValid>
+        </idePeriodo>
+        <infoCadastro>
+          <nmRazao>EMPRESA TESTE SPEDFACIL LTDA</nmRazao>
+          <classTrib>01</classTrib>
+          <natJurid>2062</natJurid>
+          <indCoop>0</indCoop>
+          <indConstr>0</indConstr>
+          <indDesFolha>0</indDesFolha>
+          <indOptRegEletron>0</indOptRegEletron>
+          <indEntEd>0</indEntEd>
+          <indEtt>0</indEtt>
+          <cnpjEFR>12345678000195</cnpjEFR>
+          <dtTrans11096>2020-01-01</dtTrans11096>
+          <indTribFolhaPisPasep>0</indTribFolhaPisPasep>
+          <contato>
+            <nmCtt>CONTATO TESTE</nmCtt>
+            <cpfCtt>12345678909</cpfCtt>
+            <foneFixo>8730210000</foneFixo>
+            <email>teste@spedfacil.com.br</email>
+          </contato>
+          <softwareHouse>
+            <cnpjSoftHouse>12345678000195</cnpjSoftHouse>
+            <nmRazao>SPEDFACIL</nmRazao>
+            <nmCont>CONTATO</nmCont>
+            <telefone>8730210000</telefone>
+            <email>teste@spedfacil.com.br</email>
+          </softwareHouse>
+          <infoOpcoes>
+            <indPreenchAnt>0</indPreenchAnt>
+          </infoOpcoes>
+        </infoCadastro>
+      </inclusao>
+    </infoEmpregador>
+  </evtInfoEmpregador>
+</eSocial>

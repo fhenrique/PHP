@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Reinf xmlns="http://www.reinf.esocial.gov.br/schemas/evtInfoContri/v1_05_01">
+  <evtInfoContri id="ID11234567800019020260801120000000000000001">
+    <ideEvento>
+      <tpAmb>2</tpAmb>
+      <procEmi>1</procEmi>
+      <verProc>SPEDFACIL-TESTE</verProc>
+    </ideEvento>
+    <ideContri>
+      <tpInsc>1</tpInsc>
+      <nrInsc>12345678000107</nrInsc>
+    </ideContri>
+    <infoContri>
+      <inclusao>
+        <idePeriodo>
+          <iniValid>2026-08</iniValid>
+        </idePeriodo>
+        <infoCadastro>
+          <classTrib>01</classTrib>
+        </infoCadastro>
+      </inclusao>
+    </infoContri>
+  </evtInfoContri>
+</Reinf>

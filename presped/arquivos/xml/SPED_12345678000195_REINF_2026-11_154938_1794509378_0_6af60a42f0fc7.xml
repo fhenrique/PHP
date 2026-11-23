@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Reinf xmlns="http://www.reinf.esocial.gov.br/schemas/evtInfoContri/v2_01_01">
+  <evtInfoContri id="ID11234567800019520261101000000000000000001">
+    <ideEvento><perApur>2026-11</perApur></ideEvento>
+    <ideContri><tpInsc>1</tpInsc><nrInsc>12345678000195</nrInsc></ideContri>
+    <infoContri><inclusao><idePeriodo><iniValid>2026-11</iniValid></idePeriodo><infoCadastro><classTrib>001</classTrib><indEscrituracao>0</indEscrituracao><indDesoneracao>0</indDesoneracao><indAcordoIsenMulta>0</indAcordoIsenMulta><indSitPJ>0</indSitPJ></infoCadastro></inclusao></infoContri>
+  </evtInfoContri>
+</Reinf>
