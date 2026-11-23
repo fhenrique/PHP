@@ -1,0 +1,167 @@
+
+/* Cards */
+
+.card-dashboard {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+}
+
+.card-dashboard:hover {
+    transform: translateY(-3px);
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
+
+.icon-azul {
+    background: #E0F0F8;
+    color: var(--azul);
+}
+
+.icon-verde {
+    background: #DDF5EF;
+    color: var(--verde);
+}
+
+.icon-vermelho {
+    background: #FCE5E5;
+    color: #DC3545;
+}
+
+/* Tabelas e formulários */
+
+.card-padrao {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.table th {
+    font-size: 13px;
+    color: #536574;
+    background: #F7F9FB;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.btn-principal {
+    background: var(--azul);
+    color: white;
+    border: none;
+}
+
+.btn-principal:hover {
+    background: var(--azul-escuro);
+    color: white;
+}
+
+/* Card de estoque baixo clicável */
+
+.card-estoque-clicavel {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Ao passar o mouse, fica azul-claro e não se movimenta */
+
+.card-estoque-clicavel:hover {
+    background-color: #eaf2ff;
+    border-color: #0d6efd;
+    transform: none;
+}
+
+/* Responsividade */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        position: relative;
+    }
+
+    .sidebar-logo img {
+        max-width: 160px;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .page-content {
+        padding: 15px;
+    }
+}
+
+/* Padronização dos links do menu lateral */
+
+.sidebar .nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.sidebar .nav .nav-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Ícones */
+.sidebar .nav .nav-link i {
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+/* Textos */
+.sidebar .nav .nav-link span {
+    min-width: 0;
+}
+
+/* Menu selecionado */
+.sidebar .nav .nav-link.active {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+/* Evita que os textos e ícones aumentem a largura do menu */
+.sidebar .nav-link i {
+    flex-shrink: 0;
+}
+
+.sidebar .nav-link span {
+    min-width: 0;
+}
+
+.sidebar .nav .nav-link.active {
+    width: auto !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-self: flex-start;
+}

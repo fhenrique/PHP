@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+
+  
+  <style>
+  
+ 
+    * { box-sizing: border-box; } html { color-scheme: light; } body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f4f6f8 !important; color: #202124; }
+   .container { width: 100%; max-width: 950px; margin: 0 auto; padding: 25px; }
+   .card { background: #fff; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+   .header { background: #fff; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); line-height: 1.2; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+   .header-titulo { min-width:0; }
+
+.header-logo {
+    background-color: #fff !important;
+    width: 100%;
+    height: 178px;
+    padding: 10px;
+    margin: 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+   .alternador-tema {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+    font-size:13px;
+    font-weight:bold;
+    color:#3c4043;
+   }
+
+   .switch-tema { position:relative; display:inline-block; width:48px; height:27px; margin:0; }
+   .switch-tema input { opacity:0; width:0; height:0; margin:0; }
+   .trilho-tema { position:absolute; cursor:pointer; inset:0; background:#c7cbd1; border-radius:30px; transition:.2s; }
+   .trilho-tema:before { content:""; position:absolute; height:21px; width:21px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; box-shadow:0 1px 3px #0003; }
+   .switch-tema input:checked + .trilho-tema { background:#4778c7; }
+   .switch-tema input:checked + .trilho-tema:before { transform:translateX(21px); }
+   .switch-tema input:focus-visible + .trilho-tema { outline:3px solid #8ab4f8; outline-offset:2px; }
+   html.tema-escuro { color-scheme: dark !important; background-color:#121820 !important; }
+   html:not(.tema-escuro) { color-scheme: light !important; background-color:#f4f6f8 !important; }
+   html:not(.tema-escuro) body { color-scheme: light !important; background:#f4f6f8 !important; color:#202124 !important; }
+
+   body.tema-escuro { color-scheme:dark !important; background:#121820 !important; color:#e8eaed !important; }
+
+   body.tema-escuro .header, body.tema-escuro .card, body.tema-escuro .placar-item, body.tema-escuro .modal-box { background:#202a36 !important; color:#e8eaed !important; }
+
+   body.tema-escuro .header p, body.tema-escuro .aviso-acesso { color:#c5ced8 !important; }
+   body.tema-escuro .aviso-acesso strong { color:#ffd166 !important; }
+   body.tema-escuro label, body.tema-escuro .topbar, body.tema-escuro .question { color:#e8eaed; }
+   body.tema-escuro select, body.tema-escuro input:not([type=radio]):not([type=checkbox]), body.tema-escuro textarea { background:#151d27 !important; color:#f1f3f4 !important; border-color:#536273 !important; }
+   body.tema-escuro .alternativa { background:#263342; border-color:#536273; color:#edf2f7; }
+   body.tema-escuro .alternativa:hover { background:#30445a; }
+   body.tema-escuro .alternativa.selecionada { background:#263f60; border-color:#8ab4f8; }
+   body.tema-escuro #infoQuantidade { background:#263342 !important; border-color:#536273 !important; color:#e8eaed !important; }
+   body.tema-escuro .progress { background:#3b4653; }
+   body.tema-escuro .feedback-correto { background:#183b2b; color:#d7f5e3; border-color:#39865c; }
+   body.tema-escuro .feedback-incorreto, body.tema-escuro .erro { background:#4a2424; color:#ffe1df; border-color:#b85b55; }
+   body.tema-escuro .modal-overlay { background:rgba(0,0,0,.72); }
+   body.tema-escuro #modalAviso > div { background:#202a36 !important; color:#e8eaed !important; }
+   body.tema-escuro #modalAjuda { background:#202a36 !important; color:#e8eaed !important; }
+   body.tema-escuro .alternador-tema { color:#e8eaed; }
+  body.tema-escuro #telaConfiguracao button.btn { background:#344355 !important; color:#f1f3f4 !important; border:1px solid #536273 !important; }
+  body.tema-escuro #telaConfiguracao button.btn:hover { background:#40546b !important; }
+   @media (max-width:480px) { .header { padding:10px 12px; } .header h1 { font-size:19px; } .alternador-tema { gap:5px; font-size:12px; } }
+   .header h1 { margin: 0 0 4px 0; font-size: 22px; } .header p { margin: 0; font-size: 13px; line-height: 1.3; }
+   label { display: block; font-weight: bold; margin-bottom: 7px; } select, input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 7px; font-size: 15px; margin-bottom: 18px; }
+   button { border: none; border-radius: 8px; padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; }
+   .btn-primary { background: #1a73e8; color: white; } .btn-success { background: #188038; color: white; } .btn-cancel { background: #fff; color: #d93025; border: 1.5px solid #d93025; }
+   .hidden { display: none !important; } .topbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+   .progress { height: 10px; background: #e0e0e0; border-radius: 10px; overflow: hidden; margin-top: 10px; } .progress-bar { height: 100%; width: 0%; background: #1a73e8; transition: width .3s; }
+   .question { font-size: 20px; font-weight: 600; margin-bottom: 25px; white-space: pre-wrap; }
+   .alternativa { border: 2px solid #ddd; border-radius: 9px; padding: 14px 16px; margin-bottom: 12px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; } .alternativa input[type="radio"]{ width: 18px; height: 18px; margin: 4px 0 0 0; flex-shrink: 0; }
+   .alternativa:hover { border-color: #1a73e8; background: #f7faff; } .alternativa.selecionada { border-color:#1a73e8; background:#e8f0fe; }
+   .feedback { margin-top: 25px; padding: 18px; border-radius: 10px; } .feedback-correto { background: #e6f4ea; border: 1px solid #34a853; } .feedback-incorreto { background: #fce8e6; border: 1px solid #ea4335; }
+   .placar { display: flex; gap: 15px; } .placar-item { background: #fff; padding: 12px 18px; border-radius: 8px; box-shadow: 0 1px 5px rgba(0,0,0,.08); }
+   .loading { text-align: center; padding: 30px; } .erro { background: #fce8e6; color: #a50e0e; border: 1px solid #ea4335; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+   .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:9999; } .modal-overlay.ativo { display: flex !important; } .modal-box { background: #fff; border-radius: 12px; padding: 25px; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; }
+.topo-config { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-bottom: 15px; gap: 10px; width: 100%; transform: translateY(-12px); }
+.topo-config h2 { width: 100%; text-align: center; margin: 0; }
+.topo-config .usuario { text-align: center; margin-left: auto; margin-right: auto; }
+@keyframes gira { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.aviso-acesso { width: 100%; max-width: 360px; margin: 28px auto 24px; padding: 0 18px; box-sizing: border-box; text-align: center; color: #3c4043; font-size: 14px; line-height: 1.6; }
+.aviso-acesso strong { display: block; margin-bottom: 8px; color: #8a5a00; font-size: 17px; }
+.cabecalho-simulado { text-align: center; }
+
+.logotipo {
+    display: block;
+    width: 220px;
+    max-width: 80%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    transform: none;
+}
+
+#tituloConfigurarSimulado { text-align: center; }
+#tituloConfigurarSimulado h2, #tituloConfigurarSimulado .usuario { text-align: center; }
+
+    /* Ajustes complementares para que todos os componentes acompanhem o tema. */
+    html, body { min-height: 100%; transition: background-color .2s, color .2s; }
+    body:not(.tema-escuro) .header,
+    body:not(.tema-escuro) .card,
+    body:not(.tema-escuro) .placar-item,
+    body:not(.tema-escuro) .modal-box { background-color:#fff; color:#202124; }
+    body:not(.tema-escuro) #modalAjuda { background:#fff !important; color:#202124 !important; }
+    body:not(.tema-escuro) #telaAguarde { background:rgba(244,246,248,.95) !important; color:#202124; }
+
+
+.header-logo img {
+    background-color: #fff !important;
+}
+
+    body.tema-escuro .header-logo img { background:transparent; }
+    body.tema-escuro .topo-config .usuario { background:#263f60 !important; color:#dbeafe !important; }
+    body.tema-escuro #infoQuantidade { background:#263342 !important; border-color:#536273 !important; color:#e8eaed !important; }
+    body.tema-escuro #telaAguarde { background:rgba(18,24,32,.96) !important; color:#e8eaed !important; }
+    body.tema-escuro #modalAjuda { background:#202a36 !important; color:#e8eaed !important; }
+    body.tema-escuro #modalAjuda p, body.tema-escuro #modalAjuda strong { color:#e8eaed; }
+    body.tema-escuro .modal-box h3, body.tema-escuro .modal-box p { color:#e8eaed; }
+    body.tema-escuro #modalAviso { background:rgba(0,0,0,.72) !important; }
+    body.tema-escuro #modalAviso > div { background:#202a36 !important; color:#e8eaed !important; }
+    body.tema-escuro #modalAviso h3, body.tema-escuro #modalAviso p { color:#e8eaed !important; }
+    body.tema-escuro .btn-cancel { background:#202a36 !important; color:#ffb4ab !important; border-color:#ff8a80 !important; }
+    body.tema-escuro button:disabled { opacity:.6; cursor:not-allowed; }
+    body.tema-escuro select option { background:#151d27; color:#f1f3f4; }
+    body.tema-escuro .feedback [style*="background:#fff3cd"] { background:#493d1b !important; color:#ffedb0 !important; border-color:#b28a22 !important; }
+    body.tema-escuro #modalCargo button:not(.btn-primary),
+    body.tema-escuro #modalCancelar button:not(.btn-primary),
+    body.tema-escuro #modalZerar button:not(.btn-primary),
+    body.tema-escuro #modalSair button:not(.btn-primary),
+    body.tema-escuro #modalSemConexao button:not(.btn-primary) {
+      background:#344355 !important; color:#f1f3f4 !important; border:1px solid #536273 !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html, body, .trilho-tema, .trilho-tema:before { transition:none !important; }
+    }
+
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="alternador-tema"><span aria-hidden="true">☀️</span>
+        <label class="switch-tema" title="Alternar tema claro ou escuro">
+            <input type="checkbox" id="alternarTema" aria-label="Ativar tema escuro">
+            <span class="trilho-tema"></span>
+        </label>
+        <span aria-hidden="true">🌙</span>
+    </div>
+  </div>
+
+<div id="telaLogin" class="card">
+
+    <div class="header-logo">
+        <img src="/estoqueweb/logotipo_v8.jpg" alt="EstoqueWeb" class="logotipo">
+    </div>
+
+  <form id="formLogin" onsubmit="fazerLoginNoSite(); return false;">
+    <h2>🔒 Acesso</h2>
+    <label>Usuário</label><input type="text" id="login" autocomplete="username">
+    <label>Código de Acesso</label><input type="password" id="codigo" autocomplete="current-password">
+    <button type="submit" id="btnEntrar" class="btn-primary" style="width:100%;">Entrar</button>
+    <div class="aviso-acesso">
+      <strong>⚠️ Atenção!</strong>
+      Este é o acesso ao sistema de simulados,
+      criado especificamente para preparar
+      candidato(a)s para o concurso 2027 da
+      Polícia Civil de Pernambuco.
+      Todas as questões deste sistema estão
+      baseadas em 100% do conteúdo programático
+      do edital.
+      Caso não possua acesso, solicite através
+      do WhatsApp: (81) 9 8490-9078 .
+    </div>
+  </form>
+</div>
+<div id="modalAviso" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;"><div style="background:white; padding:24px; border-radius:12px; max-width:350px; width:90%; text-align:center;"><h3>Atenção</h3><p id="textoModalAviso">Selecione uma alternativa</p><button onclick="fecharModalAviso()" style="background:#1a73e8; color:white; border:none; padding:10px 24px; border-radius:8px;">OK</button></div></div>
+<div id="customModal" class="modal-overlay hidden"><div class="modal-box"><div style="font-size:40px">⚠️</div><h3 id="modalTitle">Atenção</h3><p id="modalMessage"></p><button onclick="fecharModal()" style="background:#d32f2f;color:white;border:none;padding:10px 25px;border-radius:8px;font-weight:bold;">OK</button></div></div>
+<div id="telaAguarde" class="modal-overlay hidden" style="background: rgba(244,246,248,0.95);"><div style="text-align:center;"><div style="font-size: 60px; animation: gira 1.5s infinite linear;">⏳</div><h2>Aguarde!</h2><p id="textoAguarde">Carregando do servidor...</p></div></div>
+<div id="telaConfiguracao" class="card hidden">
+<div class="topo-config"><h2 style="margin:0;">Configurar Simulado</h2><span id="infoUsuario" style="background:#e8f0fe; color:#1a73e8; padding:6px 12px; border-radius:20px; font-size:13px; font-weight:bold;"></span></div>
+  <label>Bloco (Tema)</label><select id="disciplina" onchange="carregarTemas()"><option value="Todos">Todos</option></select>
+  <label>Disciplina</label><select id="tema" onchange="atualizarQuantidade()"><option value="Todas">Todas</option></select>
+  <label>Dificuldade</label><select id="dificuldade" onchange="atualizarQuantidade()"><option value="Todas">Todas</option></select>
+  <label>Quantidade</label><input type="number" id="quantidade" value="10" min="1" max="500">
+  <div id="infoQuantidade" style="background:#f8f9fa; border:1px solid #dadce0; padding:10px 12px; border-radius:8px; margin-bottom:18px; font-size:14px;"></div>
+  <div style="display:flex; gap:8px; flex-wrap:wrap;">
+    <button class="btn-primary" onclick="iniciar()">🚀 Iniciar Simulado</button>
+    <button style="background:#fbbc04; color:#202124; border-radius:8px; padding:12px 20px; font-weight:bold;" onclick="zerar()">🗑️ Zerar</button>
+    <button class="btn" style="background:#e9ecef" onclick="document.getElementById('modalAjuda').showModal()">❓ Como usar?</button>
+    <button class="btn-success" style="background:#5f6368;" onclick="abrirModalSair()">🚪Sair</button>
+  </div>
+</div>
+
+<div id="loading" class="card hidden"><div class="loading">⏳ Carregando...</div></div>
+<div id="telaProva" class="hidden">
+  <div class="topbar"><div>Questão <span id="numeroQuestao"></span> de <span id="totalQuestoes"></span></div><div style="display:flex; align-items:center; gap:12px;"><div id="boxCronometro" class="hidden" style="background:#202124; color:#fff; padding:8px 14px; border-radius:20px; font-weight:bold; font-family:monospace; font-size:16px;">⏱️ <span id="cronometro">00:00:00</span></div><div class="placar"><div class="placar-item">✅ <span id="acertos">0</span></div><div class="placar-item">❌ <span id="erros">0</span></div></div></div></div>
+  <div class="progress"><div id="barraProgresso" class="progress-bar"></div></div>
+  <div class="card"><div id="pergunta" class="question"></div><div id="alternativas"></div><div id="feedback" class="hidden"></div><div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;"><button id="btnResponder" class="btn-primary" onclick="responder()">Responder</button><button id="btnCancelar" class="btn-cancel" onclick="cancelarSimulado()">Cancelar simulado</button><button id="btnProxima" class="btn-success hidden" onclick="proxima()">Próxima →</button></div></div>
+</div>
+<div id="telaResultado" class="card hidden"><div style="text-align:center;"><h2>🏁 Fim!</h2><div id="percentual" style="font-size:55px; font-weight:bold; margin:20px 0;">0%</div><p>Acertos <strong id="resultadoAcertos">0</strong> de <strong id="resultadoTotal">0</strong></p><p id="tempoFinalResultado"></p><button class="btn-primary" onclick="voltarInicio()">Novo Simulado</button></div></div>
+<div id="mensagemErro" class="erro hidden"></div>
+</div>
+
+<div id="modalCargo" class="modal-overlay hidden"><div class="modal-box" style="max-width:500px;"><h3>🎯 Simulado da Prova - 60 questões</h3><p>Escolha o cargo:</p><div style="display:flex; flex-direction:column; gap:10px; margin-top:15px;"><button class="btn-primary" style="padding:15px;" onclick="escolherCargo('AGENTE')">👮 AGENTE</button><button class="btn-primary" style="padding:15px; background:#188038;" onclick="escolherCargo('ESCRIVAO')">📝 ESCRIVÃO</button><button style="background:#dadce0; color:#202124; border-radius:8px; padding:12px;" onclick="fecharModalCargo()">Cancelar</button></div></div></div>
+<div id="modalCancelar" class="modal-overlay hidden"><div class="modal-box"><h3>Cancelar simulado?</h3><div style="display:flex; gap:10px; justify-content:center; margin-top:20px;"><button class="btn-primary" style="background:#d93025;" onclick="confirmarCancelamento()">Sim, cancelar</button><button style="background:#e8eaed; color:#202124; border-radius:8px; padding:12px 20px;" onclick="fecharModalCancelar()">Continuar</button></div></div></div>
+<div id="modalZerar" class="modal-overlay hidden"><div class="modal-box"><h3>🗑️ Zerar Dominadas</h3><label for="selectZerarDisciplina">Disciplina que deseja zerar</label><select id="selectZerarDisciplina"></select><div style="display:flex; gap:10px; justify-content:center; margin-top:18px;"><button class="btn-primary" style="background:#d93025;" onclick="confirmarZerar()">Zerar agora</button><button style="background:#e8eaed; color:#202124; border-radius:8px; padding:12px 20px;" onclick="fecharModalZerar()">Cancelar</button></div></div></div>
+<div id="modalInfo" class="modal-overlay hidden"><div class="modal-box"><h3 id="tituloInfo"></h3><p id="textoInfo"></p><div style="display:flex; justify-content:center; margin-top:20px;"><button class="btn-primary" onclick="fecharModalInfo()">OK</button></div></div></div>
+<div id="modalSair" class="modal-overlay hidden"><div class="modal-box"><h3>Sair do sistema?</h3><div style="display:flex; gap:10px; justify-content:center; margin-top:20px;"><button class="btn-primary" style="background:#d93025;" onclick="confirmarSair()">Sim, sair</button><button style="background:#e8eaed; color:#202124; border-radius:8px; padding:12px 20px;" onclick="fecharModalSair()">Continuar</button></div></div></div>
+<dialog id="modalAjuda" style="max-width: 450px; width: calc(100% - 32px); border: none; border-radius: 14px; padding: 24px; background: #292929; color: #ffffff; box-shadow: 0 10px 35px rgba(0,0,0,0.4);">
+  <h2 style="text-align:center; margin-top:0;">❓ Como usar o sistema</h2>
+  <div style="line-height:1.7; font-size:15px;">
+    <p><strong>1.</strong> Selecione o bloco desejado.</p>
+    <p><strong>2.</strong> Escolha uma disciplina ou mantenha "Todas".</p>
+    <p><strong>3.</strong> Selecione a dificuldade das questões.</p>
+    <p><strong>4.</strong> Informe a quantidade de questões.</p>
+    <p><strong>5.</strong> Clique em "Iniciar Simulado".</p>
+    <p><strong>6.</strong> Responda às questões e acompanhe seus acertos.</p>
+    <p><strong>7.</strong> Use "Zerar" para limpar o histórico de questões dominadas, se necessário.</p>
+  </div>
+  <button type="button" onclick="document.getElementById('modalAjuda').close()" style="width:100%; margin-top:12px; background:#1a73e8; color:white;">Entendi</button>
+</dialog>
+<div id="modalSemConexao" class="modal-overlay hidden"><div class="modal-box"><h3>📵 Sem conexão!</h3><p style="font-size:14px;">O acerto não será salvo como Dominada.</p><div style="display:flex; gap:10px; justify-content:center; margin-top:20px;"><button style="background:#e8eaed; color:#202124; border-radius:8px; padding:12px 20px;" onclick="fecharModalSemConexao()">Cancelar</button><button class="btn-primary" style="background:#d93025;" onclick="confirmarResponderOffline()">Prosseguir</button></div></div></div>
+
+<script>
+const API_URL = "api.php";
+
+// Preferência visual salva neste navegador/dispositivo.
+function aplicarTema(escuro) {
+  // Aplica o tema também ao elemento raiz para impedir que navegadores móveis
+  // mantenham o modo escuro forçado depois da seleção do tema claro.
+  document.documentElement.classList.toggle('tema-escuro', !!escuro);
+  document.documentElement.style.colorScheme = escuro ? 'dark' : 'light';
+  var metaTema = document.querySelector('meta[name="color-scheme"]');
+  if (metaTema) metaTema.setAttribute('content', escuro ? 'dark' : 'light');
+  document.documentElement.style.backgroundColor = escuro ? '#121820' : '#f4f6f8';
+  document.body.classList.toggle('tema-escuro', !!escuro);
+  document.body.style.colorScheme = escuro ? 'dark' : 'light';
+  document.body.style.backgroundColor = escuro ? '#121820' : '#f4f6f8';
+  document.body.style.color = escuro ? '#e8eaed' : '#202124';
+  var controle = document.getElementById('alternarTema');
+  if (controle) {
+    controle.checked = !!escuro;
+    controle.setAttribute('aria-checked', escuro ? 'true' : 'false');
+  }
+  try { localStorage.setItem('simulados_tema', escuro ? 'escuro' : 'claro'); } catch (e) {}
+}
+function inicializarTema() {
+  var preferencia = 'claro';
+  try { preferencia = localStorage.getItem('simulados_tema') || 'claro'; } catch (e) {}
+  aplicarTema(preferencia === 'escuro');
+  var controle = document.getElementById('alternarTema');
+  if (controle) controle.addEventListener('change', function () { aplicarTema(this.checked); });
+}
+document.addEventListener('DOMContentLoaded', inicializarTema);
+
+async function apiRequest(action, options = {}) {
+  const response = await fetch(
+    API_URL + "?action=" + encodeURIComponent(action),
+    {
+      method: options.method || "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      cache: "no-store",
+      body: options.body ? JSON.stringify(options.body) : undefined
+    }
+  );
+
+  const data = await response.json().catch(() => ({}));
+
+  if (
+    response.status === 401 &&
+    data.codigo === "SESSAO_SUBSTITUIDA"
+  ) {
+    tratarSessaoSubstituida();
+    throw new Error(data.message);
+  }
+
+  if (!response.ok || data.ok === false) {
+    console.error("Erro da API:", {
+      action,
+      status: response.status,
+      resposta: data
+    });
+
+    throw new Error(
+      data.message ||
+      ("Erro HTTP " + response.status + " ao executar " + action)
+    );
+  }
+
+  return data;
+}
+
+var dadosFiltros = {}; var simulado = []; var bancoCache = [];
+var indiceAtual = 0, total = 0, acertos = 0, erros = 0;
+var letraSelecionada = null, respondeu = false;
+var usuarioLogado = '', usuarioLogin = '', configPendente = null;
+var timerInterval = null, segundosCronometro = 0, horaInicioSimulado = '';
+var modoOfflineConfirmado = false;
+function normalizaJS(s){ return String(s||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function abrirGenerico(id){ var m=document.getElementById(id); if(!m) return; m.classList.remove('hidden'); m.classList.add('ativo'); m.style.display='flex'; }
+function fecharGenerico(id){ var m=document.getElementById(id); if(!m) return; m.classList.add('hidden'); m.classList.remove('ativo'); m.style.display='none'; }
+
+async function fazerLoginNoSite() {
+  var usuario = document.getElementById('login').value;
+  var codigo = document.getElementById('codigo').value;
+  var botao = document.getElementById('btnEntrar');
+  if(!usuario.trim() || !codigo.trim()){ abrirModal("Preencha usuário e código", "Atenção"); return; }
+  botao.innerText = "Entrando..."; botao.disabled = true;
+  document.getElementById('textoAguarde').innerText = "Validando login...";
+  abrirGenerico('telaAguarde');
+  try {
+    const dados = await apiRequest("login", { method: "POST", body: { login: usuario, codigo: codigo } });
+    usuarioLogin = normalizaJS(dados.usuario.login);
+    usuarioLogado = dados.usuario.nome;
+    document.getElementById('infoUsuario').innerText = '👤 '+usuarioLogado;
+    document.getElementById('telaLogin').classList.add('hidden');
+    document.getElementById('telaConfiguracao').classList.remove('hidden');
+
+    iniciarMonitorSessao();
+
+    await carregarFiltrosServidor();
+  } catch(e) {
+    fecharGenerico('telaAguarde');
+    abrirModal(e.message || "Usuário ou código inválidos", "Acesso negado");
+  } finally {
+    botao.innerText = "Entrar"; botao.disabled = false;
+  }
+}
+function voltarLogin(){
+  document.getElementById('telaConfiguracao').classList.add('hidden');
+  document.getElementById('telaProva').classList.add('hidden');
+  document.getElementById('telaResultado').classList.add('hidden');
+  document.getElementById('loading').classList.add('hidden');
+  document.getElementById('telaLogin').classList.remove('hidden');
+  usuarioLogin=''; usuarioLogado='';
+}
+async function carregarFiltrosServidor(){
+  document.getElementById('textoAguarde').innerText = "Carregando questões do servidor...";
+  abrirGenerico('telaAguarde');
+  try {
+    const dados = await apiRequest("questoes");
+    bancoCache = dados.questoes || [];
+    preencherFiltros();
+    await atualizarQuantidade();
+  } catch(e) {
+    mostrarErro("Erro ao carregar questões: " + e.message);
+  } finally {
+    fecharGenerico('telaAguarde');
+  }
+}
+function textoFiltroSemPrefixoBloco(valor) { return String(valor == null ? '' : valor).trim().replace(/^Bloco\s+/i, ''); }
+function preencherFiltros(){
+  var grupos = Array.from(new Set(bancoCache.map(function(r){ return String(r.disciplina || '').trim(); }).filter(function(v){ return v !== ''; }))).sort(function(a, b){ return a.localeCompare(b, 'pt-BR'); });
+  var selD = document.getElementById('disciplina'); selD.innerHTML = '<option value="Todos">Todos</option>';
+  grupos.forEach(function(valor){ var o = document.createElement('option'); o.value = valor; o.textContent = textoFiltroSemPrefixoBloco(valor); selD.appendChild(o); });
+  var dificuldades = Array.from(new Set(bancoCache.map(function(r){ return String(r.dificuldade || '').trim(); }).filter(function(v){ return v !== ''; }))).sort(function(a, b){ return a.localeCompare(b, 'pt-BR'); });
+  var selDif = document.getElementById('dificuldade'); selDif.innerHTML = '<option value="Todas">Todas</option>';
+  dificuldades.forEach(function(valor){ var o = document.createElement('option'); o.value = valor; o.textContent = valor; selDif.appendChild(o); });
+  selD.value = 'Todos'; carregarTemas();
+}
+function carregarTemas(){
+  var grupoSelecionado = String(document.getElementById('disciplina').value || 'Todos').trim();
+  var selT = document.getElementById('tema'); var selecaoAnterior = selT.value; selT.innerHTML = '<option value="Todas">Todas</option>';
+  var disciplinasDoGrupo = Array.from(new Set(bancoCache.filter(function(r){ if (grupoSelecionado === 'Todos') return true; return String(r.disciplina || '').trim() === grupoSelecionado; }).map(function(r){ return String(r.bloco || '').trim(); }).filter(function(v){ return v !== ''; }))).sort(function(a, b){ return a.localeCompare(b, 'pt-BR'); });
+  disciplinasDoGrupo.forEach(function(valor){ var o = document.createElement('option'); o.value = valor; o.textContent = textoFiltroSemPrefixoBloco(valor); selT.appendChild(o); });
+  selT.value = disciplinasDoGrupo.indexOf(selecaoAnterior) !== -1 ? selecaoAnterior : 'Todas'; atualizarQuantidade();
+}
+async function getHistoricoIdsServidor(loginNorm) {
+  const dados = await apiRequest("historico");
+  return (dados.ids || []).map(id => String(id).trim());
+}
+async function registrarAcertoServidor(loginNorm, idQuestao) {
+  return await apiRequest("historico", { method: "POST", body: { operacao: "registrar", idQuestao: Number(idQuestao) } });
+}
+async function zerarHistoricoServidor(loginNorm, idsArray) {
+  return await apiRequest("historico", { method: "POST", body: { operacao: "zerar", ids: idsArray.map(Number) } });
+}
+async function atualizarQuantidade(){
+  if(bancoCache.length===0) return;
+  var discFiltro = document.getElementById('disciplina').value;
+  var temaFiltro = document.getElementById('tema').value;
+  var difFiltro = document.getElementById('dificuldade').value;
+  document.getElementById('infoQuantidade').innerHTML='⏳ Calculando...';
+  let loginNorm = normalizaJS(usuarioLogin);
+  let historicoIds = await getHistoricoIdsServidor(loginNorm);
+  var mapDom={}; historicoIds.forEach(id=> mapDom[String(id).trim()]=true);
+  var total=0, dom=0;
+  bancoCache.forEach(row=>{
+    if(discFiltro!=='Todos' && String(row.disciplina||'').trim()!==discFiltro) return;
+    if(temaFiltro!=='Todas' && String(row.bloco||'').trim()!==temaFiltro) return;
+    if(difFiltro!=='Todas' && normalizaJS(String(row.dificuldade||''))!==normalizaJS(difFiltro)) return;
+    total++; if(mapDom[String(row.id).trim()]) dom++;
+  });
+  document.getElementById('infoQuantidade').innerHTML=`📚 Total: ${total} | ✅ Dominadas: ${dom}<br>🎯 Faltam: ${total-dom}`;
+}
+
+function iniciar(){
+  esconderErro();
+  var disciplina=document.getElementById('disciplina').value;
+  var tema=document.getElementById('tema').value;
+  var dificuldade=document.getElementById('dificuldade').value;
+  var quantidade=Number(document.getElementById('quantidade').value);
+  if(disciplina==='Todos' && tema==='Todas'){
+    configPendente={ disciplina:disciplina, tema:tema, dificuldade:dificuldade, quantidade:60, login:usuarioLogin };
+    abrirGenerico('modalCargo'); return;
+  }
+  if(!quantidade||quantidade<1){ mostrarErro('Quantidade inválida'); return; }
+  var config={ disciplina:disciplina, tema:tema, dificuldade:dificuldade, quantidade:quantidade, login:usuarioLogin, cargo:'' };
+  iniciarSimuladoReal(config);
+}
+
+async function iniciarSimuladoReal(config){
+  horaInicioSimulado = new Date().toLocaleTimeString('pt-BR');
+  document.getElementById('telaConfiguracao').classList.add('hidden');
+  var divLoading=document.getElementById('loading');
+  divLoading.classList.remove('hidden');
+  divLoading.innerHTML='<div class="loading">⏳ Montando '+config.quantidade+' questões...</div>';
+  try {
+    var historicoIds = await getHistoricoIdsServidor(normalizaJS(config.login));
+    var mapDom={}; historicoIds.forEach(function(id){ mapDom[String(id).trim()]=true; });
+
+    var disciplina = config.disciplina, tema = config.tema, dificuldade = config.dificuldade;
+    var pendentes = bancoCache.filter(function(row){
+      var id=String(row.id).trim();
+      if(mapDom[id]) return false;
+      var grupo=String(row.disciplina||'').trim();
+      var disciplinaIndividual=String(row.bloco||'').trim();
+      var dif=String(row.dificuldade||'').trim();
+      if(disciplina!=='Todos' && normalizaJS(grupo)!==normalizaJS(disciplina)) return false;
+      if(tema!=='Todas' && normalizaJS(disciplinaIndividual)!==normalizaJS(tema)) return false;
+      if(dificuldade!=='Todas' && normalizaJS(dif)!==normalizaJS(dificuldade)) return false;
+      if(disciplina==='Todos' && tema==='Todas' && config.cargo){
+        var dn=normalizaJS(disciplinaIndividual);
+        if(config.cargo==='AGENTE' && dn.indexOf('arquivologia')>=0) return false;
+        if(config.cargo==='ESCRIVAO' && dn.indexOf('contabilidade')>=0) return false;
+      }
+      return true;
+    });
+
+    var eh60 = (disciplina==='Todos' && tema==='Todas' && config.quantidade===60);
+    if(eh60){
+      var porDisc={}; pendentes.forEach(function(r){ var d=String(r.disciplina||'').trim(); if(!porDisc[d]) porDisc[d]=[]; porDisc[d].push(r); });
+      var lista=Object.keys(porDisc); var sel=[];
+      lista.forEach(function(d){ porDisc[d]=porDisc[d].sort(function(){ return 0.5-Math.random(); }); });
+      var por=Math.floor(60/lista.length); var resto=60%lista.length;
+      lista.forEach(function(d){ var qtd=por+(resto>0?1:0); if(resto>0) resto--; sel=sel.concat(porDisc[d].slice(0,Math.min(qtd,porDisc[d].length))); porDisc[d]=porDisc[d].slice(qtd); });
+      if(sel.length<60){ var sob=[]; lista.forEach(function(d){ sob=sob.concat(porDisc[d]); }); sob=sob.sort(function(){ return 0.5-Math.random(); }); sel=sel.concat(sob.slice(0,60-sel.length)); }
+      pendentes=sel; pendentes.sort(function(a,b){ return 0.5-Math.random(); });
+    } else {
+      pendentes = pendentes.sort(function(){ return 0.5-Math.random(); }).slice(0,config.quantidade);
+    }
+
+    if(pendentes.length===0){ divLoading.classList.add('hidden'); document.getElementById('telaConfiguracao').classList.remove('hidden'); mostrarErro('Sem questões pendentes. Zere as Dominadas.'); return; }
+
+    simulado = pendentes.map(function(row){
+      return {
+        id: String(row.id).trim(),
+        disciplina: String(row.bloco||'').trim(),
+        tema: String(row.disciplina||'').trim(),
+        pergunta: String(row.enunciado||''),
+        alternativas: { A: String(row.alternativaA||''), B: String(row.alternativaB||''), C: String(row.alternativaC||''), D: String(row.alternativaD||''), E: String(row.alternativaE||'') },
+        gabarito: String(row.correta||'').trim().toUpperCase(),
+        dificuldade: String(row.dificuldade||'').trim(),
+        explicacao: String(row.comentario||'')
+      };
+    });
+
+    divLoading.classList.add('hidden');
+    total=simulado.length; indiceAtual=0; acertos=0; erros=0;
+    document.getElementById('telaProva').classList.remove('hidden');
+    var elTot = document.getElementById('totalQuestoes'); if(elTot) elTot.innerText = total;
+    mostrarQuestao();
+    if(config.quantidade===60){ iniciarCronometro(); } else { var box=document.getElementById('boxCronometro'); if(box) box.classList.add('hidden'); pararCronometro(); }
+  } catch(err){
+    console.error('Erro iniciarSimuladoReal', err);
+    var dl=document.getElementById('loading'); if(dl) dl.classList.add('hidden');
+    var cfg=document.getElementById('telaConfiguracao'); if(cfg) cfg.classList.remove('hidden');
+    mostrarErro('Erro ao montar simulado: '+(err.message||err));
+  }
+}
+
+function escolherCargo(cargo){ fecharGenerico('modalCargo'); if(!configPendente) return; configPendente.cargo=cargo; iniciarSimuladoReal(configPendente); }
+function fecharModalCargo(){ fecharGenerico('modalCargo'); }
+function mostrarQuestao(){
+  respondeu=false; letraSelecionada=null;
+  document.getElementById('btnResponder').classList.remove('hidden'); document.getElementById('btnCancelar').classList.remove('hidden'); document.getElementById('btnProxima').classList.add('hidden');
+  var q=simulado[indiceAtual]; document.getElementById('numeroQuestao').textContent=indiceAtual+1; document.getElementById('totalQuestoes').textContent=total; document.getElementById('pergunta').textContent=q.pergunta;
+  var alt=document.getElementById('alternativas'); alt.innerHTML='';
+  ['A','B','C','D','E'].forEach(function(l){
+    var div=document.createElement('div'); div.className='alternativa'; div.id='alt-'+l;
+    div.onclick=function(){ document.querySelectorAll('.alternativa').forEach(function(el){ el.classList.remove('selecionada'); }); div.classList.add('selecionada'); div.querySelector('input').checked=true; letraSelecionada=l; };
+    var r=document.createElement('input'); r.type='radio'; r.name='resposta'; r.value=l;
+    var ld=document.createElement('div'); ld.textContent=l+') '; ld.style.fontWeight='bold';
+    var tx=document.createElement('div'); tx.textContent=q.alternativas[l]||''; tx.style.whiteSpace='pre-wrap';
+    div.appendChild(r); div.appendChild(ld); div.appendChild(tx); alt.appendChild(div);
+  });
+  document.getElementById('feedback').className='hidden'; document.getElementById('barraProgresso').style.width=(indiceAtual/total*100)+'%'; atualizarPlacar();
+}
+function responder(){
+  if(respondeu) return;
+  var selecionado = document.querySelector('input[name="resposta"]:checked');
+  if(!selecionado){ mostrarModalAviso("Selecione uma alternativa!"); return; }
+  if(!navigator.onLine && !modoOfflineConfirmado){ abrirGenerico('modalSemConexao'); return; }
+  executarResposta(selecionado);
+}
+async function executarResposta(selecionado){
+  respondeu=true; modoOfflineConfirmado=false;
+  var q=simulado[indiceAtual]; var gab=String(q.gabarito).trim().toUpperCase(); var resp=String(selecionado.value).trim().toUpperCase(); var ok=resp===gab;
+  if(ok && navigator.onLine){
+    try { await registrarAcertoServidor(normalizaJS(usuarioLogin), q.id); }
+    catch(e) { console.error(e); abrirModal("Sua resposta foi corrigida, mas não foi possível salvar a questão dominada. Verifique sua conexão e tente novamente.", "Falha ao salvar histórico"); }
+  }
+  var fb=document.getElementById('feedback');
+  var htmlExp = q.explicacao ? '<div style="margin-top:15px; padding-top:12px; border-top:1px solid rgba(0,0,0,0.15); text-align:left; white-space:pre-wrap;"><strong>📖 Explicação:</strong><br>'+q.explicacao+'</div>' : '<div style="margin-top:15px; font-style:italic; opacity:0.7;">Sem explicação cadastrada.</div>';
+  if(!navigator.onLine) htmlExp += '<div style="margin-top:12px; padding:10px; background:#fff3cd; border:1px solid #ffc107; border-radius:8px; font-size:13px;">📵 Offline - não contabilizado.</div>';
+  if(ok){ acertos++; fb.className='feedback feedback-correto'; fb.innerHTML='<h3>✅ CORRETO</h3><p>Gabarito: '+gab+'</p>'+htmlExp; }
+  else { erros++; fb.className='feedback feedback-incorreto'; fb.innerHTML='<h3>❌ ERROU</h3><p>Você: '+resp+' | Correto: '+gab+'</p>'+htmlExp; }
+  fb.classList.remove('hidden'); document.getElementById('btnResponder').classList.add('hidden'); document.getElementById('btnCancelar').classList.add('hidden'); document.getElementById('btnProxima').classList.remove('hidden'); atualizarPlacar();
+}
+function proxima(){ indiceAtual++; if(indiceAtual>=total){ finalizar(); return; } mostrarQuestao(); }
+function finalizar(){
+  pararCronometro();
+  document.getElementById('telaProva').classList.add('hidden');
+  document.getElementById('telaResultado').classList.remove('hidden');
+  var perc=total>0?Math.round(acertos/total*100):0;
+  document.getElementById('percentual').textContent=perc+'%';
+  document.getElementById('resultadoAcertos').textContent=acertos;
+  document.getElementById('resultadoTotal').textContent=total;
+  document.getElementById('tempoFinalResultado').innerHTML = segundosCronometro>0 ? '⏱️ Tempo: <strong>'+formatarTempoFinal(segundosCronometro)+'</strong>' : '';
+  atualizarQuantidade();
+}
+function voltarInicio(){ pararCronometro(); document.getElementById('telaResultado').classList.add('hidden'); document.getElementById('telaConfiguracao').classList.remove('hidden'); simulado=[]; indiceAtual=0; total=0; acertos=0; erros=0; atualizarQuantidade(); }
+function cancelarSimulado(){ abrirGenerico('modalCancelar'); } function fecharModalCancelar(){ fecharGenerico('modalCancelar'); }
+function confirmarCancelamento(){
+  fecharGenerico('modalCancelar');
+  pararCronometro();
+  document.getElementById('telaProva').classList.add('hidden');
+  document.getElementById('telaConfiguracao').classList.remove('hidden');
+  simulado=[]; indiceAtual=0; total=0; acertos=0; erros=0;
+  atualizarQuantidade();
+}
+function atualizarPlacar(){ document.getElementById('acertos').textContent=acertos; document.getElementById('erros').textContent=erros; }
+function iniciarCronometro(){ pararCronometro(); segundosCronometro=0; document.getElementById('boxCronometro').classList.remove('hidden'); document.getElementById('cronometro').textContent='00:00:00'; timerInterval=setInterval(function(){ segundosCronometro++; var h=Math.floor(segundosCronometro/3600); var m=Math.floor((segundosCronometro%3600)/60); var s=segundosCronometro%60; var txt=(h<10?'0'+h:h)+':'+(m<10?'0'+m:m)+':'+(s<10?'0'+s:s); document.getElementById('cronometro').textContent=txt; if(segundosCronometro===14400) document.getElementById('boxCronometro').style.background='#d93025'; },1000); }
+function pararCronometro(){ if(timerInterval){ clearInterval(timerInterval); timerInterval=null; } }
+function formatarTempoFinal(seg){ var h=Math.floor(seg/3600); var m=Math.floor((seg%3600)/60); var s=seg%60; return (h>0?h+'h ':'')+(m>0?m+'min ':'')+s+'s'; }
+
+function nomeExibicaoDisciplinaZerar(valor) { return String(valor == null ? '' : valor).trim().replace(/^Bloco\s+[^-]+\s*-\s*/i, ''); }
+function zerar() {
+  var sel = document.getElementById('selectZerarDisciplina'); sel.innerHTML = '';
+  var optTodas = document.createElement('option'); optTodas.value = 'Todas'; optTodas.textContent = 'Todas (zerar tudo)'; sel.appendChild(optTodas);
+  var disciplinas = Array.from(new Set(bancoCache.map(function(r){ return String(r.bloco || '').trim(); }).filter(function(d){ return d !== ''; }))).sort(function(a, b){ return nomeExibicaoDisciplinaZerar(a).localeCompare(nomeExibicaoDisciplinaZerar(b), 'pt-BR'); });
+  disciplinas.forEach(function(d){ var opt = document.createElement('option'); opt.value = d; opt.textContent = nomeExibicaoDisciplinaZerar(d) || d; sel.appendChild(opt); });
+  sel.value = disciplinas.length ? disciplinas[0] : 'Todas'; abrirGenerico('modalZerar');
+}
+function fecharModalZerar() { fecharGenerico('modalZerar'); }
+async function confirmarZerar() {
+  var disciplinaSelecionada = document.getElementById('selectZerarDisciplina').value;
+  if (!disciplinaSelecionada) { mostrarInfo('Atenção', 'Não há disciplina selecionada para zerar.'); return; }
+  var idsParaZerar;
+  if (disciplinaSelecionada === 'Todas') { idsParaZerar = bancoCache.map(function(r){ return String(r.id == null ? '' : r.id).trim(); }); }
+  else { idsParaZerar = bancoCache.filter(function(r){ return String(r.bloco || '').trim() === disciplinaSelecionada; }).map(function(r){ return String(r.id == null ? '' : r.id).trim(); }); }
+  idsParaZerar = Array.from(new Set(idsParaZerar.filter(function(id){ return id !== ''; })));
+  if (idsParaZerar.length === 0) { mostrarInfo('Atenção','Nenhuma questão encontrada para a seleção: ' + nomeExibicaoDisciplinaZerar(disciplinaSelecionada)); return; }
+  fecharGenerico('modalZerar');
+  document.getElementById('infoQuantidade').innerHTML = '⏳ Zerando o histórico de ' + (disciplinaSelecionada === 'Todas' ? 'todas as disciplinas' : nomeExibicaoDisciplinaZerar(disciplinaSelecionada)) + '...';
+  try {
+    var res = await zerarHistoricoServidor(normalizaJS(usuarioLogin), idsParaZerar);
+    var descricao = disciplinaSelecionada === 'Todas' ? 'todas as disciplinas' : 'a disciplina ' + nomeExibicaoDisciplinaZerar(disciplinaSelecionada);
+    mostrarInfo('✅ Pronto','Processo concluído para ' + descricao + '. IDs processados: ' + res.zeradas + '.');
+    await atualizarQuantidade();
+  } catch (e) { mostrarInfo('Erro', e.message || String(e)); }
+}
+function mostrarErro(m){ var e=document.getElementById('mensagemErro'); e.textContent=m; e.classList.remove('hidden'); }
+function esconderErro(){ document.getElementById('mensagemErro').classList.add('hidden'); }
+function abrirModal(msg,titulo){ document.getElementById('modalTitle').innerText=titulo||'Atenção'; document.getElementById('modalMessage').innerText=msg; abrirGenerico('customModal'); }
+function fecharModal(){ fecharGenerico('customModal'); }
+function mostrarInfo(titulo,texto){ document.getElementById('tituloInfo').textContent=titulo; document.getElementById('textoInfo').textContent=texto; abrirGenerico('modalInfo'); }
+function fecharModalInfo(){ fecharGenerico('modalInfo'); }
+function abrirModalSair(){ abrirGenerico('modalSair'); } function fecharModalSair(){ fecharGenerico('modalSair'); }
+
+async function confirmarSair(){
+    try {
+        if (monitorSessaoAtiva) {
+          clearInterval(monitorSessaoAtiva);
+          monitorSessaoAtiva = null;
+        }
+
+        await apiRequest('logout', { method: 'POST', body: {} });
+    } catch(e) {
+        console.error(e);
+    }
+    fecharGenerico('modalSair');
+    location.reload();
+}
+
+function mostrarModalAviso(texto){ document.getElementById('textoModalAviso').innerText=texto; document.getElementById('modalAviso').style.display='flex'; }
+function fecharModalAviso(){ document.getElementById('modalAviso').style.display='none'; }
+function fecharModalSemConexao(){ fecharGenerico('modalSemConexao'); }
+function confirmarResponderOffline(){ fecharGenerico('modalSemConexao'); modoOfflineConfirmado=true; var sel=document.querySelector('input[name="resposta"]:checked'); if(sel) executarResposta(sel); }
+
+let monitorSessaoAtiva = null;
+let sessaoSubstituida = false;
+
+function tratarSessaoSubstituida() {
+  if (sessaoSubstituida) return;
+
+  sessaoSubstituida = true;
+
+  if (monitorSessaoAtiva) {
+    clearInterval(monitorSessaoAtiva);
+    monitorSessaoAtiva = null;
+  }
+
+  // Usa o modal personalizado já existente no sistema.
+  abrirModal(
+    'Alguém fez login com este usuário em outro dispositivo!',
+    'Sessão encerrada'
+  );
+
+  // Redireciona somente depois que o usuário clicar em OK.
+  var botaoModal = document.querySelector('#customModal button');
+  if (botaoModal) {
+    botaoModal.onclick = function () {
+      fecharModal();
+      location.href = 'index.html';
+    };
+  }
+}
+
+async function verificarSessaoAtiva() {
+  if (sessaoSubstituida || !usuarioLogado) return;
+
+  try {
+    const resposta = await fetch('api.php?action=sessao', {
+      method: 'GET',
+      credentials: 'same-origin',
+      cache: 'no-store'
+    });
+
+    const dados = await resposta.json();
+
+    if (
+      dados.codigo === 'SESSAO_SUBSTITUIDA' ||
+      (dados.ok && dados.autenticado === false)
+    ) {
+      tratarSessaoSubstituida();
+    }
+  } catch (erro) {
+    // Falha temporária de rede não encerra a sessão.
+    console.warn('Não foi possível verificar a sessão:', erro);
+  }
+}
+
+function iniciarMonitorSessao() {
+  if (monitorSessaoAtiva) {
+    clearInterval(monitorSessaoAtiva);
+  }
+
+  sessaoSubstituida = false;
+
+  // Verifica a cada 5 segundos.
+  monitorSessaoAtiva = setInterval(verificarSessaoAtiva, 5000);
+}
+</script>
+
+<a
+  class="whatsapp-float"
+  href="https://wa.me/5581984909078?text=Olá! Gostaria de uma credencial gratuita."
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Fale conosco pelo WhatsApp"
+>
+  <span>✆</span> WhatsApp
+</a>
+
+<style>
+  .whatsapp-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+  }
+
+  .whatsapp-float:hover {
+    background: #1ebe5d;
+  }
+</style>
+
+</body>
+</html>
+```
+

@@ -96,7 +96,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="card-body d-flex justify-content-between align-items-center">
                 <div>
                     <div class="text-muted small">Produto(s) c/ estoque baixo</div>
-                    <h2 class="mt-2 mb-0 <?= $estoqueBaixo > 0 ? 'text-danger' : 'text-success' ?>">
+                    <h2 class="mt-2 mb-0 <?= $estoqueBaixo > 0 ? 'text-primary' : 'text-danger' ?>">
                         <?= $estoqueBaixo ?>
                     </h2>
                 </div>
