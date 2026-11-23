@@ -1,0 +1,60 @@
+CREATE DATABASE IF NOT EXISTS curral CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE curral;
+
+CREATE TABLE usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  whatsapp VARCHAR(20) NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  avatar VARCHAR(50) DEFAULT 'deputado',
+  cor VARCHAR(20) DEFAULT '#3498db',
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE salas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  mapa VARCHAR(50) NOT NULL,
+  max_jogadores INT DEFAULT 10,
+  tempo_partida INT DEFAULT 600,
+  status ENUM('ABERTA','EM_JOGO','FINALIZADA') DEFAULT 'ABERTA',
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO salas (nome, mapa) VALUES
+('BRASIL', 'brasil'),
+('CONGRESSO', 'congresso'),
+('CÂMARA DOS VEREADORES', 'camara');
+
+CREATE TABLE sala_jogadores (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  sala_id INT NOT NULL,
+  usuario_id INT NOT NULL,
+  cor VARCHAR(20) NOT NULL,
+  avatar VARCHAR(50) NOT NULL,
+  territorio DECIMAL(5,2) DEFAULT 2.00,
+  vivo TINYINT(1) DEFAULT 1,
+  entrou_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_sala_usuario (sala_id, usuario_id),
+  FOREIGN KEY (sala_id) REFERENCES salas(id) ON DELETE CASCADE,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE ranking (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  sala_id INT NULL,
+  territorio_final DECIMAL(5,2) DEFAULT 0,
+  venceu TINYINT(1) DEFAULT 0,
+  jogado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE jogo_estado (
+  sala_id INT PRIMARY KEY,
+  grade_json LONGTEXT NOT NULL,
+  jogadores_json LONGTEXT NOT NULL,
+  atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (sala_id) REFERENCES salas(id) ON DELETE CASCADE
+);
