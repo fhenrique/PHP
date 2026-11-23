@@ -1,0 +1,118 @@
+Manual do Usuário - EstoqueWeb
+
+1. O que é o EstoqueWeb?
+Sistema para controlar estoque e almoxarifado. 
+Com gestão de produtos, fornecedores, categorias, usuários e movimentações.
+
+
+2. Como entrar no sistema
+
+2.1 Tela de Login
+Campos:
+E-mailSenhaComo funciona:
+Digite e-mail e senhaClique em EntrarSe estiver tudo certo, vai para a tela de Seleção de EmpresaSe errar:
+E-mail ou senha incorretos: aparece "E-mail ou senha inválidos"Conta inativa: aparece "Usuário inativo. Procure o administrador"Se tentar entrar em página interna sem login, volta para o login
+
+2.2 Seleção de Empresa
+Depois do login, você escolhe em qual empresa vai trabalhar.
+Só aparecem empresas ativasSe você for Administrador Geral, vê todas as empresas ativasSe você for Administrador ou Operador, vê só a sua empresaDepois de escolher, clique em ContinuarPara trocar de empresa: saia do sistema e entre de novo, ou use a opção de trocar empresa no menu, se disponível.
+
+2.3 Sair do sistema - Logout
+Clique em Sair. O sistema apaga sua sessão e volta para a tela de login. Para entrar de novo, precisa digitar e-mail, senha e selecionar a empresa novamente.
+
+3. Perfis de acessoO que pode fazerOperador (2)Administrador (1)Administrador Geral (3)Ver Painel InicialSimSimSimDar entrada de estoqueSimSimSimDar saída de estoqueSimSimSimVer movimentaçõesSimSimSimVer relatório de estoqueSimSimSimVer produtos com estoque baixoSimSimSimCadastrar / editar produtosNãoSimSimCadastrar / editar categoriasNãoSimSimCadastrar / editar fornecedoresNãoSimSimCadastrar / editar usuáriosNãoSimSimGerenciar empresasNãoNãoSimResumo:
+Operador: só movimenta estoque e consulta.Administrador: gerencia tudo da sua empresa, menos empresas.Administrador Geral: é o único que gerencia empresas.
+
+4. Painel Inicial - index.php
+É a primeira tela depois de selecionar a empresa.
+O que você vê:
+Nome da empresa selecionadaCards de resumo:Total de produtos ativosProdutos com estoque baixoTotal de movimentaçõesEntradas e SaídasAtalhos rápidos para Entrada, Saída, Produtos e MovimentaçõesAlerta de estoque baixo, quando houverSe não houver empresa selecionada, o sistema pede para selecionar antes de mostrar o painel.
+
+5. Entrada de Estoque - entrada_estoque.php
+Serve para registrar a chegada de produtos no estoque. Pode dar entrada em vários produtos de uma vez.
+Campos do cabeçalho da entrada
+Data da entrada* - já vem com a data de hoje, pode alterarDocumento - opcional. Ex: Nota Fiscal 123, Pedido 45Fornecedor* - obrigatório. Só aparecem fornecedores ativos da empresaObservação geral - opcional, vale para a entrada todaCampos de cada produto
+Você pode adicionar várias linhas:
+Produto* - só aparecem produtos ativosQuantidade* - mínimo 0,001, máximo 999.999.999,999Valor unitário* - mínimo 0,01. Aceita formato brasileiro, ex: 10,50Valor total - calculado automaticamente: quantidade x valor unitárioMotivo / Observação do item - opcionalBotões:
++ Adicionar produto - adiciona uma nova linhaRemover - tira a linha. Precisa ter pelo menos 1 produtoRegistrar entrada - salva tudoRegras importantes
+Se o mesmo produto aparecer 2 vezes na mesma entrada, o sistema soma as quantidadesO valor total da entrada é a soma de todos os itensAo salvar, o estoque de cada produto aumenta e é criada uma movimentação do tipo ENTRADA para cada itemSe der erro em um item, nenhum é salvo. Ou salva tudo, ou não salva nadaExemplo: Entrou 10 unidades de Papel A4 a R25,00.Estoqueaumentaem10evalortotalficaR 25,00. Estoque aumenta em 10 e valor total fica R25,00.Estoqueaumentaem10evalortotalficaR 250,00.
+
+6. Saída de Estoque - saida_estoque.php
+Serve para registrar a retirada de produtos. Aqui é 1 produto por vez.
+Campos
+Data da saída* - já vem com hojeDocumento - opcional. Ex: Requisição nº 001Setor de destino* - obrigatório, até 150 caracteres. Ex: Administrativo, ManutençãoResponsável pelo recebimento - opcionalMotivo da saída - opcional, até 255 caracteres. Ex: Consumo, transferência, manutençãoObservações - opcionalProduto* - só produtos ativosQuantidade* - mínimo 0,001Regra de ouro
+O sistema não deixa o estoque ficar negativo.Quando você seleciona o produto, ele mostra: "Estoque disponível: X UN"
+Se digitar mais que o estoque disponível:
+A tela avisa em amareloAo tentar salvar, bloqueia com: "Estoque insuficiente. Estoque disponível: ..."Ao salvar, o estoque diminui e é criada uma movimentação do tipo SAÍDA. Saída não tem valor, o valor fica em branco.
+
+
+7. Produtos - produtos.php
+Só Administrador e Administrador Geral acessam.
+Campos do produto
+Código* - único na empresa. Não pode repetir. Ex: PROD-001Nome* - até 150 caracteresCategoria* - só categorias ativas aparecem. Se a categoria estiver inativa, não dá para cadastrar produto novo nelaUnidade* - Ex: UN, CX, KG, L, PCTPreço de custo - opcional, pode ser 0Preço de venda - opcionalEstoque atual - na criação, começa com 0 ou com o valor informado. Na edição, não dá para alterar direto aqui, só por Entrada e SaídaEstoque mínimo* - usado para o alerta de estoque baixo. Ex: se mínimo é 10 e estoque é 10, já entra no alertaDescrição - opcionalProduto ativo - checkboxNa lista
+Pesquisa por código, nome ou categoriaFiltro por categoria e por status: Ativos / Inativos / TodosMostra: Código, Nome, Categoria, Unidade, Estoque atual, Estoque mínimo, Preços e SituaçãoAlerta visual: se estoque atual <= estoque mínimo, a linha fica destacada como estoque baixoBotões: Editar e Ativar / DesativarRegras:
+Código repetido na mesma empresa: erro "Já existe um produto com este código"Produto inativo não aparece em Entrada nem em SaídaProduto inativo não aparece no relatório de estoque baixo
+
+8. Categorias - categorias.php
+Serve para organizar os produtos. Ex: Papelaria, Limpeza, Informática.
+Campos
+Nome da categoria* - até 100 caracteres. Não pode repetir na mesma empresaDescrição - até 255 caracteresCategoria ativa - checkbox marcado por padrãoNa lista
+Pesquisa por nomeMostra: Código, Nome, Descrição e Situação (Ativa / Inativa)Botões: Editar e Ativar / DesativarRegra: Se inativar uma categoria que já tem produtos, os produtos continuam lá, mas não dá para cadastrar produto novo nela.
+
+9. Fornecedores - fornecedores.php
+Só Administrador e Administrador Geral acessam.
+Campos
+Tipo de Pessoa* - Pessoa Jurídica (J) ou Pessoa Física (F)Razão Social / Nome Completo* - até 150 caracteresNome Fantasia - obrigatório só se for Pessoa JurídicaCPF / CNPJ* - 11 dígitos se for CPF, 14 se for CNPJ. Não pode repetir na mesma empresaTelefone* - obrigatórioE-mail - opcional, mas se preencher tem que ser válidoEndereço - Endereço, Número (só números), Complemento, Bairro, Cidade, UF, CEPObservaçõesStatus - Ativo / Inativo. Só aparece na edição. Cadastro novo já nasce AtivoFacilidades
+Consulta automática de CEP: digitou o CEP e saiu do campo, o sistema busca e preenche Endereço, Bairro, Cidade e UF sozinho, e já deixa o cursor no campo NúmeroMáscaras automáticas: CPF/CNPJ, Telefone e CEP já formatam enquanto você digitaNa lista
+Pesquisa por nome ou CPF/CNPJFiltro: Somente ativos / Somente inativos / TodosBotões: Editar e Inativar / ReativarRegras:
+CPF/CNPJ repetido: erro "Já existe um fornecedor cadastrado com este CPF/CNPJ"Fornecedor inativo não aparece na tela de Entrada de Estoque
+
+10. Usuários - usuarios.php
+Só Administrador acessa.
+Campos
+Nome completo*E-mail* - único no sistema inteiro, não pode repetir em nenhuma empresaPerfil de acesso* - só 2 opções: Administrador ou OperadorSenha* - mínimo 8 caracteres. Na edição, se deixar em branco, mantém a senha atualUsuário ativo - checkboxTravas de segurança
+Perfil 3 (Administrador Geral) não aparece aqui - ele é reservado e não dá para criar nem editar por essa telaVocê não pode desativar sua própria contaVocê não pode mudar seu próprio perfilNão dá para deixar a empresa sem Administrador - se tentar desativar ou rebaixar o último Administrador ativo, bloqueia: "Não é possível remover o último Administrador ativo desta empresa"Na lista
+Pesquisa por nome ou e-mailMostra quem é você com o selo "Você"Botões: Editar e Ativar / Desativar. O botão de desativar não aparece na sua própria linha
+
+11. Empresas - empresas.php
+Só o Administrador Geral (perfil 3) entra.
+Se um Administrador comum ou Operador tentar abrir, aparece tela de "Acesso Negado!" com contador de 5 segundos e volta sozinho para o Painel Inicial.
+Campos
+Nome da empresa* - até 150 caracteres. Não pode repetirEmpresa ativa - só aparece na edição. Empresa nova sempre nasce ativaTrava importante
+Não dá para desativar a última empresa ativa. Se tentar, bloqueia: "Não é possível desativar a última empresa ativa"Na lista
+Código, Empresa, Data de cadastro, Situação (Ativa / Inativa)Botões: Editar e Ativar / Desativar
+
+12. Movimentações de Estoque - movimentacoes.php
+É o histórico de tudo que entrou e saiu. Não dá para editar nada aqui, só consultar.
+Resumo no topo
+Respeita os filtros aplicados:
+Total de movimentaçõesEntradas - quantas e quantidade totalSaídas - quantas e quantidade totalFiltros
+Tipo - Todas / Entradas / SaídasProdutoUsuário responsávelPesquisa livre - procura em produto, código, usuário, documento, setor, motivo e fornecedorData inicial e final - não deixa colocar inicial maior que finalTabela
+Mostra 20 por página:
+ID, Data, Tipo (badge verde para Entrada, vermelho para Saída), Produto, Quantidade, Responsável, Fornecedor (se entrada) ou Destino (se saída), Documento/Motivo, Valor totalBotão de olhinho abre o detalhe completo: produto, código, tipo, quantidade, data, usuário, documento, fornecedor ou setor de destino, responsável pelo recebimento, valor unitário, valor total, motivo e observaçõesExportação
+Exporta exatamente o que está filtrado, em 2 formatos:
+Excel (.xls)CSV (.csv) separado por ;O arquivo já vem com nome da empresa e data da exportação.
+
+13. Relatório de Estoque - relatorio_estoque.php
+Mostra a posição atual do estoque.
+Filtros
+Produto - pesquisa por nome ou códigoCategoriaStatus do estoque - Todos / Com estoque / Sem estoque / Estoque baixoOrdenação - por Nome, Estoque, Preço, etc.O que mostra
+Código, Produto, Categoria, Unidade, Estoque atual, Estoque mínimo, Preço de custo, Preço de venda, Valor total em estoqueValor total em estoque = estoque atual x preço de custoTotal geral no rodapéExportação
+Igual às movimentações: exporta o que está filtrado em Excel (.xls) ou CSV (.csv).
+
+14. Produtos com Estoque Baixo - produtos_estoque_baixo.php
+Tela só de alerta, não tem formulário.
+Regra para aparecer aqui:
+Produto ativo + estoque atual <= estoque mínimoEx: mínimo 10, atual 10 = já aparece. Atual 10,001 = não aparece.
+Tabela mostra:
+Código, Produto, Categoria, UnidadeEstoque atual em vermelho e negritoEstoque mínimoDiferença - quanto falta para chegar no mínimo (mínimo - atual)2 botões de ação rápida:
+Editar - vai para Produtos já com ele abertoDar entrada - vai para Entrada de Estoque já com esse produto pré-selecionadoSe não tiver nenhum, aparece: "Nenhum produto com estoque baixo! Todos os produtos ativos estão com estoque acima do mínimo."
+
+15. Fluxo recomendado do dia a dia
+Para quem é Operador:
+Entrar, selecionar empresaVer Painel Inicial e alerta de estoque baixoRegistrar Entradas (chegada de mercadoria) ou Saídas (retirada para setor)Consultar Movimentações se precisar comprovar algoPara quem é Administrador:
+Cadastrar Categorias primeiroCadastrar FornecedoresCadastrar ProdutosCadastrar Usuários OperadoresDepois, acompanhar Painel, Relatório e Estoque BaixoPara quem é Administrador Geral:
+Cadastrar EmpresasGarantir que cada empresa tenha pelo menos 1 AdministradorAcompanhar o sistema como um todo
+
+16. Dicas e erros mais comuns
+"Estoque insuficiente" - Você tentou dar saída de mais produto do que tem. Verifique o estoque atual ou faça uma Entrada primeiro."Já existe um produto com este código" - Código já usado na mesma empresa. Troque o código."Já existe um fornecedor com este CPF/CNPJ" - Fornecedor já cadastrado. Pesquise na lista, pode estar inativo."Este e-mail já está cadastrado" - E-mail é único no sistema inteiro. Use outro e-mail."Não é possível remover o último Administrador" - Crie outro Administrador antes de desativar ou rebaixar esse."Não é possível desativar a última empresa ativa" - Deixe pelo menos 1 empresa ativa.Produto não aparece na Entrada/Saída - Verifique se ele está ativo e se a categoria dele está ativa.Fornecedor não aparece na Entrada - Verifique se ele está ativo.CEP não preencheu sozinho - Verifique se digitou 8 dígitos e se está com internet. Se não preencher, digite o endereço manualmente.Esqueci minha senha - Peça para um Administrador da sua empresa redefinir sua senha na tela de Usuários.

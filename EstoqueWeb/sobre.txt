@@ -1,0 +1,6 @@
+- Dados para conexão:
+banco: u248075441_estoqueweb
+usuário: u248075441_estoqueweb
+senha: Senhaestoqueweb3762
+
+
